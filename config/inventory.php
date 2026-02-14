@@ -11,7 +11,8 @@ return [
 
         'cache_expirations' => [
             'warehouse_expiration_seconds' => (int) env('WAREHOUSE_CATALOG_EXPIRATION_SECONDS', 3600),
-            'stock_inventory_seconds'   => (int) env('STOCK_INVENTORY_EXPIRATION_SECONDS', 600),
+            'warehouse_inventory_seconds' => (int) env('CACHE_WAREHOUSE_INVENTORY_TTL', 600),
+            'stock_inventory_seconds' => (int) env('STOCK_INVENTORY_EXPIRATION_SECONDS', 600),
         ],
 
         'lock' => [
@@ -19,5 +20,9 @@ return [
             'timeout' => 10,
         ],
     ],
-];
 
+    'pagination' => [
+        'default_per_page' => 15,
+        'max_per_page' => 100,
+    ],
+];

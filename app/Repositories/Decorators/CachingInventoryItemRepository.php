@@ -24,12 +24,13 @@ final class CachingInventoryItemRepository implements InventoryItemRepositoryInt
         $key = CacheKeyGenerator::inventoryListKey(
             $data->toFilterArray(),
             $data->per_page,
-            $data->cursor ?? 'first',
+            $data->cursor,
         );
 
         $tags = [
             CacheKeyGenerator::inventoryTag(),
             CacheKeyGenerator::warehousesTag(),
+            CacheKeyGenerator::warehouseInventoryTag(),
         ];
 
         return $this->cache->rememberWithLock(
