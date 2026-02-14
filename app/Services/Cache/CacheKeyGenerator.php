@@ -35,4 +35,17 @@ final class CacheKeyGenerator
     {
         return 'warehouse-inventory';
     }
+
+    public static function inventoryListKey(array $filters, int $perPage, ?string $cursor): string
+    {
+        ksort($filters);
+        $filterHash = md5(json_encode($filters));
+        
+        return "inventory:list:{$filterHash}:pp{$perPage}:c_{$cursor}";
+    }
+
+    public static function inventoryTag(): string
+    {
+        return 'inventory_items';
+    }
 }
