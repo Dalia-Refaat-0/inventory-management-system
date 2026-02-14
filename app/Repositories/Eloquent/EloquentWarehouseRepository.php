@@ -6,20 +6,19 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\WarehouseRepositoryInterface;
 use App\Models\Warehouse;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\CursorPaginator;
 
 final class EloquentWarehouseRepository implements WarehouseRepositoryInterface
 {
-    public function getActive(bool $withCounts = false): Collection
+    public function getActive(int $perPage = 15, bool $withCounts = false): CursorPaginator
     {
         $query = Warehouse::query()
-            ->with(['location'])
             ->active();
 
         if ($withCounts) {
             $query->withCount('stocks');
         }
 
-        return $query->orderBy('name')->get();
+        return $query->orderBy('name')->cursorPaginate($perPage);
     }
 }
