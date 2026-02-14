@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Casts\SKUCast;
 use App\ValueObjects\SKU;
+use App\Builders\InventoryItemBuilder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property float      $price
  * @property Collection $stocks
  * @property Collection $transfers
- * @property-read int   $total_stock
+ * @method static InventoryItemBuilder query()
  */
 class InventoryItem extends Model
 {
@@ -37,6 +38,10 @@ class InventoryItem extends Model
         'sku'   => SKUCast::class,
     ];
 
+    public function newEloquentBuilder($query): InventoryItemBuilder
+    {
+        return new InventoryItemBuilder($query);
+    }
     public function stocks(): HasMany
     {
         return $this->hasMany(Stock::class);

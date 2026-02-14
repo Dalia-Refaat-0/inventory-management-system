@@ -36,14 +36,14 @@ class DatabaseSeeder extends Seeder
             $items = InventoryItem::factory(30)->create();
 
             $warehouses->each(function ($warehouse) use ($items) {
-                $items->random(rand(10, 20))->each(function ($item) use ($warehouse) {
+                $items->random(random_int(10, 20))->each(function ($item) use ($warehouse) {
                     Stock::firstOrCreate(
                         [
                             'warehouse_id'      => $warehouse->id,
                             'inventory_item_id' => $item->id,
                         ],
                         [
-                            'quantity'            => rand(10, 500),
+                            'quantity'            => random_int(10, 500),
                             'low_stock_threshold' => 10,
                         ]
                     );

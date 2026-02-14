@@ -12,8 +12,8 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('warehouse_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('inventory_item_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('warehouse_id')->constrained()->restrictOnDelete();
+            $table->foreignId('inventory_item_id')->constrained()->restrictOnDelete();
             $table->unsignedInteger('quantity')->default(0);
             $table->unsignedInteger('low_stock_threshold')->default(10);
 
@@ -23,10 +23,6 @@ return new class extends Migration
                 ['warehouse_id', 'inventory_item_id'],
                 'stocks_warehouse_item_unique'
             );
-
-            $table->index('quantity');
-            $table->index('created_at');
-
         });
     }
 

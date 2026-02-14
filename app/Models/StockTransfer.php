@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string         $reference_number
  * @property string|null    $notes
  * @property int|null       $transferred_by
+ * @property \Carbon\Carbon|null $completed_at
  */
 class StockTransfer extends Model
 {
@@ -38,6 +39,7 @@ class StockTransfer extends Model
     protected $casts = [
         'quantity' => 'integer',
         'status'   => TransferStatus::class,
+        'completed_at' => 'datetime',
     ];
 
     public function sourceWarehouse(): BelongsTo
@@ -59,5 +61,4 @@ class StockTransfer extends Model
     {
         return $this->belongsTo(User::class, 'transferred_by');
     }
-
 }

@@ -7,17 +7,21 @@ namespace App\Enums;
 enum TransferStatus: string
 {
     case Pending    = 'pending';
-    case Approved   = 'approved';
-    case Processing = 'processing';
-    case Shipped    = 'shipped';
-    case Delivered  = 'delivered';
     case Completed  = 'completed';
     case Cancelled  = 'cancelled';
-    case Rejected   = 'rejected';
 
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
+    }
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::Pending    => 'Pending',
+            self::Completed  => 'Completed',
+            self::Cancelled  => 'Cancelled',
+        };
     }
 
     public function canTransitionTo(self $target): bool
@@ -31,14 +35,9 @@ enum TransferStatus: string
     public function allowedTransitions(): array
     {
         return match ($this) {
-            self::Pending    => [self::Approved, self::Cancelled],
-            self::Approved   => [self::Processing, self::Cancelled],
-            self::Processing => [self::Shipped, self::Cancelled],
-            self::Shipped    => [self::Delivered, self::Rejected],
-            self::Delivered  => [self::Completed, self::Rejected],
+            self::Pending   => [self::Cancelled, self::Completed],
             self::Completed,
-            self::Cancelled,
-            self::Rejected   => [],
+            self::Cancelled => [],
         };
     }
 

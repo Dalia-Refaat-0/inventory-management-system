@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\ValueObjects;
 
 use InvalidArgumentException;
-use Illuminate\Support\Str;
 use Stringable;
 
 final readonly class SKU implements Stringable
