@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Contracts\StockRepositoryInterface;
 use App\DTOs\WarehouseInventoryData;
 use App\Http\Resources\StockResource;
-use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 

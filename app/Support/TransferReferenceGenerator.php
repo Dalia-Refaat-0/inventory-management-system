@@ -7,7 +7,7 @@ namespace App\Support;
 use App\Contracts\StockTransferRepositoryInterface;
 use Illuminate\Support\Str;
 
-final class TransferReferenceGenerator
+class TransferReferenceGenerator
 {
     public function __construct(
         private readonly StockTransferRepositoryInterface $repository

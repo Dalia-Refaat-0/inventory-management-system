@@ -8,7 +8,6 @@ use App\Contracts\InventoryItemRepositoryInterface;
 use App\DTOs\InventoryFilterData;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\InventoryItemResource;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class InventoryController extends Controller

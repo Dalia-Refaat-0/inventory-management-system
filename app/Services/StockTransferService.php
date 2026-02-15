@@ -42,7 +42,7 @@ final class StockTransferService
                 status: TransferStatus::Completed,
                 referenceNumber: $this->referenceGenerator->generate(),
                 transferredBy: $user->id
-            ),['sourceWarehouse', 'destinationWarehouse']
+            ),['sourceWarehouse', 'destinationWarehouse', 'inventoryItem']
         );
 
         return [$transfer, $source->refresh()];

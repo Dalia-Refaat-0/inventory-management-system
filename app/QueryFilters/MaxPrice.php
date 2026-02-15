@@ -4,7 +4,7 @@ namespace App\QueryFilters;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class MaxPrice extends Filter
+final class MaxPrice extends Filter
 {
     protected function filterName(): string { return 'max_price'; }
 
