@@ -1,59 +1,229 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 🏭 Inventory Management System
 
-## About Laravel
+[![PHP](https://img.shields.io/badge/PHP-8.1+-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
+[![Laravel](https://img.shields.io/badge/Laravel-10.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
+[![Redis](https://img.shields.io/badge/Redis-Cache-DC382D?style=flat-square&logo=redis&logoColor=white)](https://redis.io)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+</div>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Table of Contents
 
-## Learning Laravel
+- [Technical Implementation](#technical-implementation)
+- [Architectural Patterns](#architectural-patterns)
+- [Performance Optimizations](#performance-optimizations)
+- [Testing Strategy](#testing-strategy)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Technical Implementation
 
-## Laravel Sponsors
+### Core Technologies
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| Layer | Technology | Purpose |
+|:------|:-----------|:--------|
+| **Authentication** | Laravel Sanctum | Token-based API authentication |
+| **Validation** | Spatie Laravel Data | DTO validation using attributes |
+| **Caching** | Redis | Tag-based invalidation with stampede prevention |
+| **Pagination** | Cursor Pagination | Scalable pagination for large datasets |
+| **Filtering** | Pipeline Pattern | Composable and extensible query filters |
+| **Domain Logic** | Value Objects | SKU enforcement via custom Eloquent Cast |
+| **State Management** | PHP 8.1 Enums | Transfer status validation |
+| **Query Layer** | Custom Builders | Reusable query scopes |
+| **Data Access** | Repository Pattern | Clean abstraction with caching decorators |
+| **Errors** | Custom Exceptions | Self-rendering HTTP responses |
+| **Events** | Laravel Queue System | Asynchronous event listeners |
+| **Concurrency** | Pessimistic Locking | Prevent race conditions during transfers |
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Architectural Patterns
 
-## Contributing
+### Repository + Decorator Pattern
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Caching repositories wrap Eloquent repositories, enabling transparent caching without modifying core data access logic.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Pipeline Pattern
 
-## Security Vulnerabilities
+Filters are implemented as composable, single-responsibility classes:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Filter | Description |
+|:-------|:------------|
+| `Search` | Full-text search across fields |
+| `MinPrice` | Minimum price filtering |
+| `MaxPrice` | Maximum price filtering |
+| `WarehouseFilter` | Filter by warehouse location |
 
-## License
+> ✅ **Benefit:** New filters can be added without modifying existing logic.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+### Value Object — SKU
+
+Encapsulates SKU validation rules and enforces domain invariants during object construction.
+
+| Component | Purpose |
+|:----------|:--------|
+| `SKU` | Value object with validation logic |
+| `SKUCast` | Custom Eloquent cast for serialization |
+
+---
+
+### State Management — TransferStatus Enum
+
+Transfer state is controlled using PHP 8.1 Enum.
+
+> ✅ **Benefit:** Prevents invalid transitions and enforces business rules.
+
+---
+
+### DTOs (Data Transfer Objects)
+
+Implemented using **Spatie Laravel Data**:
+
+| DTO | Purpose |
+|:----|:--------|
+| `InventoryFilterData` | Search and filter parameters |
+| `TransferStockData` | Transfer request validation |
+| `StockTransferCreationData` | Transfer creation payload |
+| `WarehouseInventoryData` | Warehouse inventory response |
+
+> ✅ **Benefit:** Ensures validated and typed data before reaching business logic.
+
+---
+
+### Concurrency Handling
+
+Stock transfers are protected using multiple safeguards:
+
+| Mechanism | Purpose |
+|:----------|:--------|
+| Database Transactions | Ensure atomicity |
+| Pessimistic Locking | Prevent concurrent modifications |
+| Atomic Quantity Updates | Maintain data consistency |
+
+> ✅ **Benefit:** Prevents race conditions and inconsistent stock states.
+
+---
+
+## Performance Optimizations
+
+| Optimization | Implementation |
+|:-------------|:---------------|
+| **Cursor Pagination** | Scalable results for large datasets |
+| **Tag-based Redis Caching** | Precise cache invalidation |
+| **Cache Stampede Prevention** | Lock-based cache population |
+| **Strategic Database Indexes** | Optimized query execution |
+| **Eager Loading** | Prevents N+1 queries |
+| **Custom Query Builders** | Reusable, optimized scopes |
+
+---
+
+## Default Credentials
+
+<details>
+<summary>📌 Click to reveal test credentials</summary>
+<br>
+
+| Field | Value |
+|:------|:------|
+| Email | `test@example.com` |
+| Password | `password` |
+
+> ⚠️ **Warning:** These are seeded test credentials.
+
+</details>
+
+---
+
+## Testing Strategy
+
+| Test Type | Coverage |
+|:----------|:---------|
+| **Unit Tests** | Services, Value Objects, Enums |
+| **Feature Tests** | API Endpoints, Request/Response |
+
+---
+
+## Project Structure
+
+```text
+app/
+├── Builders/
+│   ├── InventoryItemBuilder.php
+│   ├── StockBuilder.php
+│   └── WarehouseBuilder.php
+├── Casts/
+│   └── SKUCast.php
+├── Contracts/
+│   ├── InventoryItemRepositoryInterface.php
+│   ├── StockRepositoryInterface.php
+│   ├── StockTransferRepositoryInterface.php
+│   └── WarehouseRepositoryInterface.php
+├── DTOs/
+│   ├── InventoryFilterData.php
+│   ├── TransferStockData.php
+│   ├── StockTransferCreationData.php
+│   └── WarehouseInventoryData.php
+├── Enums/
+│   └── TransferStatus.php
+├── Events/
+│   └── LowStockDetected.php
+├── Exceptions/
+│   └── InsufficientStockException.php
+├── Http/
+│   ├── Controllers/
+│   └── Resources/
+├── Listeners/
+│   └── NotifyWarehouseManager.php
+├── Models/
+│   ├── InventoryItem.php
+│   ├── Stock.php
+│   ├── StockTransfer.php
+│   ├── User.php
+│   └── Warehouse.php
+├── QueryFilters/
+│   ├── Filter.php
+│   ├── MaxPrice.php
+│   ├── MinPrice.php
+│   ├── Search.php
+│   └── WarehouseFilter.php
+├── Repositories/
+│   ├── Decorators/
+│   │   ├── CachingInventoryItemRepository.php
+│   │   ├── CachingStockRepository.php
+│   │   └── CachingWarehouseRepository.php
+│   └── Eloquent/
+│       ├── EloquentInventoryItemRepository.php
+│       ├── EloquentStockRepository.php
+│       ├── EloquentStockTransferRepository.php
+│       └── EloquentWarehouseRepository.php
+├── Services/
+│   ├── StockTransferService.php
+│   └── Cache/
+│       ├── CacheKeyGenerator.php
+│       └── CacheService.php
+└── ValueObjects/
+    └── SKU.php
+```
+
+---
+
+## Getting Started
+
+```bash
+git clone https://github.com/Dalia-Refaat-0/inventory-management-system.git
+cd inventory-management-system
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+```
