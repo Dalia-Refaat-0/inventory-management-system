@@ -12,6 +12,7 @@
 
 ## Table of Contents
 
+- [API Collection](#api-collection)
 - [Technical Implementation](#technical-implementation)
 - [Architectural Patterns](#architectural-patterns)
 - [Performance Optimizations](#performance-optimizations)
@@ -20,6 +21,12 @@
 - [Getting Started](#getting-started)
 
 ---
+
+## API Collection
+
+Postman collection and environment files are available in the project root:
+- `inventory-management-system.postman_collection.json`
+- `inventory-management-system.postman_environment.json`
 
 ## Technical Implementation
 
