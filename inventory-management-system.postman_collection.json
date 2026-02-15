@@ -1,0 +1,817 @@
+{
+  "info": {
+    "_postman_id": "cd182901-83b4-43e1-ae6f-f6ffcf817c94",
+    "name": "inventory-management-system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51969083",
+    "_collection_link": "https://go.postman.co/collection/51969083-cd182901-83b4-43e1-ae6f-f6ffcf817c94?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "",
+                  "if (response.token) {",
+                  "    pm.collectionVariables.set(\"token\", response.token);",
+                  "    ",
+                  "    console.log(\"Success: Token updated in collection variables.\");",
+                  "} else {",
+                  "    console.error(\"Auth Error: Token was missing from the response body.\");",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "test@example.com",
+                  "type": "text",
+                  "uuid": "dee7aaae-7bbd-4e69-a3d0-11db1e70eeba"
+                },
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text",
+                  "uuid": "0fd54650-11ea-4478-9fb3-3670a4c14179"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "email",
+                      "value": "test@example.com",
+                      "type": "text",
+                      "uuid": "dee7aaae-7bbd-4e69-a3d0-11db1e70eeba"
+                    },
+                    {
+                      "key": "password",
+                      "value": "password",
+                      "type": "text",
+                      "uuid": "0fd54650-11ea-4478-9fb3-3670a4c14179"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/login",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.4.1"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 15 Feb 2026 11:03:59 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"token\": \"1|z3Uoq4bv8Q6JvDhXIkqYlLSs4B9ZDxMlRDxapkGg3ebfe1e2\",\n    \"user\": {\n        \"id\": 6,\n        \"name\": \"Test User\",\n        \"email\": \"test@example.com\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "test@example.com",
+                  "type": "text",
+                  "uuid": "dee7aaae-7bbd-4e69-a3d0-11db1e70eeba"
+                },
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text",
+                  "uuid": "0fd54650-11ea-4478-9fb3-3670a4c14179"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "email",
+                      "value": "test@example.com",
+                      "type": "text",
+                      "uuid": "dee7aaae-7bbd-4e69-a3d0-11db1e70eeba"
+                    },
+                    {
+                      "key": "password",
+                      "value": "password",
+                      "type": "text",
+                      "uuid": "0fd54650-11ea-4478-9fb3-3670a4c14179"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/logout",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "logout"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.4.1"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 15 Feb 2026 11:05:05 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Logged out successfully.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "warehouses",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/warehouses?per_page=3",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "warehouses"
+          ],
+          "query": [
+            {
+              "key": "per_page",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/warehouses?per_page=3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "warehouses"
+              ],
+              "query": [
+                {
+                  "key": "per_page",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.1"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 15 Feb 2026 11:05:27 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": [\n        {\n            \"id\": 12,\n            \"name\": \"Bartell, Nienow and Mante Warehouse\",\n            \"address\": \"844 Nico Stream\\nWinstonville, LA 86092-3711\",\n            \"is_active\": true,\n            \"coordinates\": {\n                \"latitude\": -63.720348,\n                \"longitude\": 161.611342\n            },\n            \"updated_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 16,\n            \"name\": \"Conroy-Maggio Warehouse\",\n            \"address\": \"9204 Mayert Gateway Suite 846\\nEichmannshire, WY 14550-0805\",\n            \"is_active\": true,\n            \"coordinates\": {\n                \"latitude\": 30.967738,\n                \"longitude\": -134.988154\n            },\n            \"updated_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 14,\n            \"name\": \"Daniel PLC Warehouse\",\n            \"address\": \"5184 Kulas Canyon Suite 584\\nNew Della, VA 36175\",\n            \"is_active\": true,\n            \"coordinates\": {\n                \"latitude\": 10.331531,\n                \"longitude\": 21.479362\n            },\n            \"updated_at\": \"2026-02-15T11:03:53+00:00\"\n        }\n    ],\n    \"links\": {\n        \"first\": null,\n        \"last\": null,\n        \"prev\": null,\n        \"next\": \"http://127.0.0.1:8000/api/warehouses?cursor=eyJuYW1lIjoiRGFuaWVsIFBMQyBXYXJlaG91c2UiLCJfcG9pbnRzVG9OZXh0SXRlbXMiOnRydWV9\"\n    },\n    \"meta\": {\n        \"path\": \"http://127.0.0.1:8000/api/warehouses\",\n        \"per_page\": 3,\n        \"next_cursor\": \"eyJuYW1lIjoiRGFuaWVsIFBMQyBXYXJlaG91c2UiLCJfcG9pbnRzVG9OZXh0SXRlbXMiOnRydWV9\",\n        \"prev_cursor\": null\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "inventory",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "{{base_url}}/inventory?warehouse_id[]=2",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "inventory"
+          ],
+          "query": [
+            {
+              "key": "per_page",
+              "value": "2",
+              "disabled": true
+            },
+            {
+              "key": "search",
+              "value": "assumenda",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "min_price",
+              "value": "8000",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "max_price",
+              "value": "10000",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "warehouse_id[]",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base_url}}/inventory",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "inventory"
+              ],
+              "query": [
+                {
+                  "key": "per_page",
+                  "value": "2",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "assumenda",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "min_price",
+                  "value": "8000",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "max_price",
+                  "value": "10000",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "warehouse_id[]",
+                  "value": "3",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.1"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 15 Feb 2026 11:05:42 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": [\n        {\n            \"id\": 36,\n            \"name\": \"repellendus ad rem\",\n            \"sku\": \"SKU-PWZ-2602-5925\",\n            \"price\": 6493.26,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 12,\n                    \"warehouse_name\": \"Bartell, Nienow and Mante Warehouse\",\n                    \"quantity\": 292,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 14,\n                    \"warehouse_name\": \"Daniel PLC Warehouse\",\n                    \"quantity\": 20,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 312,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 35,\n            \"name\": \"deserunt aspernatur assumenda\",\n            \"sku\": \"SKU-AFK-2602-1282\",\n            \"price\": 2031.95,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 12,\n                    \"warehouse_name\": \"Bartell, Nienow and Mante Warehouse\",\n                    \"quantity\": 183,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 14,\n                    \"warehouse_name\": \"Daniel PLC Warehouse\",\n                    \"quantity\": 403,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 15,\n                    \"warehouse_name\": \"Schamberger PLC Warehouse\",\n                    \"quantity\": 171,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 757,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 34,\n            \"name\": \"consequatur suscipit dolore\",\n            \"sku\": \"SKU-IUY-2602-6976\",\n            \"price\": 9489.34,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 13,\n                    \"warehouse_name\": \"Mueller-Effertz Warehouse\",\n                    \"quantity\": 190,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 16,\n                    \"warehouse_name\": \"Conroy-Maggio Warehouse\",\n                    \"quantity\": 492,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 682,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 33,\n            \"name\": \"a ut id\",\n            \"sku\": \"SKU-AUW-2602-6064\",\n            \"price\": 845.12,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 13,\n                    \"warehouse_name\": \"Mueller-Effertz Warehouse\",\n                    \"quantity\": 307,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 14,\n                    \"warehouse_name\": \"Daniel PLC Warehouse\",\n                    \"quantity\": 272,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 15,\n                    \"warehouse_name\": \"Schamberger PLC Warehouse\",\n                    \"quantity\": 387,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 966,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 32,\n            \"name\": \"repudiandae eaque maiores\",\n            \"sku\": \"SKU-IKN-2602-3961\",\n            \"price\": 1336.96,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 12,\n                    \"warehouse_name\": \"Bartell, Nienow and Mante Warehouse\",\n                    \"quantity\": 59,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 14,\n                    \"warehouse_name\": \"Daniel PLC Warehouse\",\n                    \"quantity\": 76,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 135,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 31,\n            \"name\": \"molestiae et eos\",\n            \"sku\": \"SKU-FKT-2602-8366\",\n            \"price\": 6233.79,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 16,\n                    \"warehouse_name\": \"Conroy-Maggio Warehouse\",\n                    \"quantity\": 262,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 262,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 30,\n            \"name\": \"quis sint dolorem\",\n            \"sku\": \"SKU-AKO-2602-1988\",\n            \"price\": 685.19,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 13,\n                    \"warehouse_name\": \"Mueller-Effertz Warehouse\",\n                    \"quantity\": 295,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 16,\n                    \"warehouse_name\": \"Conroy-Maggio Warehouse\",\n                    \"quantity\": 444,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 739,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 29,\n            \"name\": \"non rerum rerum\",\n            \"sku\": \"SKU-MQV-2602-0178\",\n            \"price\": 8630.7,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 13,\n                    \"warehouse_name\": \"Mueller-Effertz Warehouse\",\n                    \"quantity\": 273,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 14,\n                    \"warehouse_name\": \"Daniel PLC Warehouse\",\n                    \"quantity\": 161,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 16,\n                    \"warehouse_name\": \"Conroy-Maggio Warehouse\",\n                    \"quantity\": 213,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 647,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 28,\n            \"name\": \"eligendi minima et\",\n            \"sku\": \"SKU-DSV-2602-2949\",\n            \"price\": 7392.28,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 14,\n                    \"warehouse_name\": \"Daniel PLC Warehouse\",\n                    \"quantity\": 81,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 16,\n                    \"warehouse_name\": \"Conroy-Maggio Warehouse\",\n                    \"quantity\": 333,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 414,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 27,\n            \"name\": \"deleniti nulla molestias\",\n            \"sku\": \"SKU-QUZ-2602-6012\",\n            \"price\": 5293.1,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 13,\n                    \"warehouse_name\": \"Mueller-Effertz Warehouse\",\n                    \"quantity\": 35,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 15,\n                    \"warehouse_name\": \"Schamberger PLC Warehouse\",\n                    \"quantity\": 363,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 398,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 26,\n            \"name\": \"et saepe optio\",\n            \"sku\": \"SKU-FHJ-2602-1133\",\n            \"price\": 8886.45,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 13,\n                    \"warehouse_name\": \"Mueller-Effertz Warehouse\",\n                    \"quantity\": 479,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 15,\n                    \"warehouse_name\": \"Schamberger PLC Warehouse\",\n                    \"quantity\": 397,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 16,\n                    \"warehouse_name\": \"Conroy-Maggio Warehouse\",\n                    \"quantity\": 182,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 1058,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 25,\n            \"name\": \"officiis magni aliquid\",\n            \"sku\": \"SKU-JMN-2602-2853\",\n            \"price\": 2403.78,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 15,\n                    \"warehouse_name\": \"Schamberger PLC Warehouse\",\n                    \"quantity\": 90,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 90,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 24,\n            \"name\": \"expedita est qui\",\n            \"sku\": \"SKU-DRZ-2602-2292\",\n            \"price\": 1096.39,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 15,\n                    \"warehouse_name\": \"Schamberger PLC Warehouse\",\n                    \"quantity\": 498,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 16,\n                    \"warehouse_name\": \"Conroy-Maggio Warehouse\",\n                    \"quantity\": 33,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 531,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 23,\n            \"name\": \"aut quia doloremque\",\n            \"sku\": \"SKU-CDI-2602-3853\",\n            \"price\": 8192.95,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 13,\n                    \"warehouse_name\": \"Mueller-Effertz Warehouse\",\n                    \"quantity\": 417,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 15,\n                    \"warehouse_name\": \"Schamberger PLC Warehouse\",\n                    \"quantity\": 434,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 16,\n                    \"warehouse_name\": \"Conroy-Maggio Warehouse\",\n                    \"quantity\": 264,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 1115,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"id\": 22,\n            \"name\": \"voluptatem amet voluptatem\",\n            \"sku\": \"SKU-DFL-2602-8996\",\n            \"price\": 1803.14,\n            \"inventory\": [\n                {\n                    \"warehouse_id\": 13,\n                    \"warehouse_name\": \"Mueller-Effertz Warehouse\",\n                    \"quantity\": 359,\n                    \"status\": \"in_stock\"\n                },\n                {\n                    \"warehouse_id\": 15,\n                    \"warehouse_name\": \"Schamberger PLC Warehouse\",\n                    \"quantity\": 350,\n                    \"status\": \"in_stock\"\n                }\n            ],\n            \"total_stock\": 709,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        }\n    ],\n    \"links\": {\n        \"first\": null,\n        \"last\": null,\n        \"prev\": null,\n        \"next\": \"http://127.0.0.1:8000/api/inventory?cursor=eyJpZCI6MjIsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0\"\n    },\n    \"meta\": {\n        \"path\": \"http://127.0.0.1:8000/api/inventory\",\n        \"per_page\": 15,\n        \"next_cursor\": \"eyJpZCI6MjIsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0\",\n        \"prev_cursor\": null\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "warehousesInventory",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/warehouses/:id/inventory",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "warehouses",
+            ":id",
+            "inventory"
+          ],
+          "query": [
+            {
+              "key": "per_page",
+              "value": "12",
+              "disabled": true
+            }
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/warehouses/:id/inventory",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "warehouses",
+                ":id",
+                "inventory"
+              ],
+              "query": [
+                {
+                  "key": "per_page",
+                  "value": "12",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "12"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.1"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 15 Feb 2026 11:06:44 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": [\n        {\n            \"item_id\": 13,\n            \"name\": \"ab cum error\",\n            \"sku\": \"SKU-PSZ-2602-1355\",\n            \"quantity\": 2,\n            \"status\": {\n                \"is_low\": true,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 11,\n            \"name\": \"temporibus voluptatem qui\",\n            \"sku\": \"SKU-CLP-2602-9065\",\n            \"quantity\": 3,\n            \"status\": {\n                \"is_low\": true,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 9,\n            \"name\": \"sint aut voluptatem\",\n            \"sku\": \"SKU-HSZ-2602-0708\",\n            \"quantity\": 1,\n            \"status\": {\n                \"is_low\": true,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 36,\n            \"name\": \"repellendus ad rem\",\n            \"sku\": \"SKU-PWZ-2602-5925\",\n            \"quantity\": 292,\n            \"status\": {\n                \"is_low\": false,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 35,\n            \"name\": \"deserunt aspernatur assumenda\",\n            \"sku\": \"SKU-AFK-2602-1282\",\n            \"quantity\": 183,\n            \"status\": {\n                \"is_low\": false,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 32,\n            \"name\": \"repudiandae eaque maiores\",\n            \"sku\": \"SKU-IKN-2602-3961\",\n            \"quantity\": 59,\n            \"status\": {\n                \"is_low\": false,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 21,\n            \"name\": \"qui enim et\",\n            \"sku\": \"SKU-ANS-2602-2606\",\n            \"quantity\": 71,\n            \"status\": {\n                \"is_low\": false,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 16,\n            \"name\": \"soluta qui et\",\n            \"sku\": \"SKU-AFP-2602-1328\",\n            \"quantity\": 404,\n            \"status\": {\n                \"is_low\": false,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 14,\n            \"name\": \"inventore fugiat qui\",\n            \"sku\": \"SKU-AGU-2602-1947\",\n            \"quantity\": 277,\n            \"status\": {\n                \"is_low\": false,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 12,\n            \"name\": \"est officiis dolorem\",\n            \"sku\": \"SKU-MNY-2602-3262\",\n            \"quantity\": 107,\n            \"status\": {\n                \"is_low\": false,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 10,\n            \"name\": \"sit aspernatur voluptatum\",\n            \"sku\": \"SKU-KUZ-2602-6822\",\n            \"quantity\": 88,\n            \"status\": {\n                \"is_low\": false,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 8,\n            \"name\": \"deserunt sapiente dolore\",\n            \"sku\": \"SKU-GMW-2602-0266\",\n            \"quantity\": 197,\n            \"status\": {\n                \"is_low\": false,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        },\n        {\n            \"item_id\": 7,\n            \"name\": \"maxime omnis non\",\n            \"sku\": \"SKU-MOR-2602-8950\",\n            \"quantity\": 270,\n            \"status\": {\n                \"is_low\": false,\n                \"threshold\": 10\n            },\n            \"last_updated\": \"2026-02-15T11:03:53+00:00\"\n        }\n    ],\n    \"links\": {\n        \"first\": null,\n        \"last\": null,\n        \"prev\": null,\n        \"next\": null\n    },\n    \"meta\": {\n        \"path\": \"http://127.0.0.1:8000/api/warehouses/12/inventory\",\n        \"per_page\": 15,\n        \"next_cursor\": null,\n        \"prev_cursor\": null\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "stock-transfers",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "source_warehouse_id",
+              "value": "32",
+              "type": "text",
+              "uuid": "d11ad4b5-5af9-4c18-a14f-621d57e6274a"
+            },
+            {
+              "key": "destination_warehouse_id",
+              "value": "35",
+              "type": "text",
+              "uuid": "ae26829b-5400-4d4d-91d3-89312363fbb4"
+            },
+            {
+              "key": "inventory_item_id",
+              "value": "180",
+              "type": "text",
+              "uuid": "236eecb2-009f-40dd-ab5c-462e61feaaa4"
+            },
+            {
+              "key": "quantity",
+              "value": "426",
+              "type": "text",
+              "uuid": "69c4ef0c-da65-45c9-ab4c-87d8b85c3462"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/stock-transfers",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "stock-transfers"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "source_warehouse_id",
+                  "value": "12",
+                  "type": "text",
+                  "uuid": "d11ad4b5-5af9-4c18-a14f-621d57e6274a"
+                },
+                {
+                  "key": "destination_warehouse_id",
+                  "value": "14",
+                  "type": "text",
+                  "uuid": "ae26829b-5400-4d4d-91d3-89312363fbb4"
+                },
+                {
+                  "key": "inventory_item_id",
+                  "value": "36",
+                  "type": "text",
+                  "uuid": "236eecb2-009f-40dd-ab5c-462e61feaaa4"
+                },
+                {
+                  "key": "quantity",
+                  "value": "134",
+                  "type": "text",
+                  "uuid": "69c4ef0c-da65-45c9-ab4c-87d8b85c3462"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/stock-transfers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "stock-transfers"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.1"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 15 Feb 2026 11:07:25 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"id\": 6,\n        \"reference_number\": \"TRF-20260215-QUVKBHXV\",\n        \"status\": \"completed\",\n        \"quantity\": 134,\n        \"item\": {\n            \"id\": 36,\n            \"name\": \"repellendus ad rem\",\n            \"sku\": \"SKU-PWZ-2602-5925\",\n            \"price\": 6493.26,\n            \"created_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        \"source\": {\n            \"id\": 12,\n            \"name\": \"Bartell, Nienow and Mante Warehouse\",\n            \"address\": \"844 Nico Stream\\nWinstonville, LA 86092-3711\",\n            \"is_active\": true,\n            \"coordinates\": {\n                \"latitude\": -63.720348,\n                \"longitude\": 161.611342\n            },\n            \"updated_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        \"destination\": {\n            \"id\": 14,\n            \"name\": \"Daniel PLC Warehouse\",\n            \"address\": \"5184 Kulas Canyon Suite 584\\nNew Della, VA 36175\",\n            \"is_active\": true,\n            \"coordinates\": {\n                \"latitude\": 10.331531,\n                \"longitude\": 21.479362\n            },\n            \"updated_at\": \"2026-02-15T11:03:53+00:00\"\n        },\n        \"dates\": {\n            \"created_at\": \"2026-02-15T11:07:25+00:00\",\n            \"updated_at\": \"2026-02-15T11:07:25+00:00\"\n        }\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
