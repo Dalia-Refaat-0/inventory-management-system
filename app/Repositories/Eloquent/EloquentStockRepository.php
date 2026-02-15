@@ -47,14 +47,11 @@ final class EloquentStockRepository implements StockRepositoryInterface
 
     public function decrementQuantity(Stock $stock, int $amount): void
     {
-        $this->validateAmount($amount);
         $stock->decrement('quantity', $amount);
     }
 
     public function incrementQuantity(Stock $stock, int $amount): void
     {
-        $this->validateAmount($amount);
-
         $stock->increment('quantity', $amount);
     }
 
@@ -70,10 +67,4 @@ final class EloquentStockRepository implements StockRepositoryInterface
         return false;
     }
 
-    private function validateAmount(int $amount): void
-    {
-        if ($amount <= 0) {
-            throw new InvalidArgumentException('Amount must be a positive integer');
-        }
-    }
 }

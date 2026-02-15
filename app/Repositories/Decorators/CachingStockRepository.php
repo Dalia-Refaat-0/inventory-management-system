@@ -91,6 +91,8 @@ final readonly class CachingStockRepository implements StockRepositoryInterface
     {
         $this->cache->flush([
             CacheKeyGenerator::warehouseTag($warehouseId),
+            CacheKeyGenerator::inventoryTag(),
+            CacheKeyGenerator::warehouseInventoryTag(),
         ]);
     }
 }

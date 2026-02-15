@@ -19,5 +19,6 @@ interface StockRepositoryInterface
     public function decrementQuantity(Stock $stock, int $amount): void;
 
     public function deleteIfEmpty(Stock $stock): bool;
+    
     public function incrementQuantity(Stock $stock, int $amount): void;
 }
